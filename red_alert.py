@@ -89,6 +89,8 @@ def get_alert_data_within_limits(overall_start_date, overall_end_date, max_data_
 
     current_end_date = overall_end_date
     current_start_date = current_end_date - timedelta(days=30)  # Start with a month
+    if current_start_date < overall_start_date:         #If range goes past the start date, reset the start date 
+        current_start_date = overall_start_date
 
     last_loop = False    #debugging variable to escape while loop after last time around
 
@@ -107,10 +109,13 @@ def get_alert_data_within_limits(overall_start_date, overall_end_date, max_data_
         else:
             print(f"Collected {len(data)} data points from {current_start_date.strftime(date_format)} to {current_end_date.strftime(date_format)}")
             all_data.extend(data)
+            if current_start_date == overall_start_date:  #break if last date has been scraped already
+                break
             current_end_date = current_start_date - timedelta(days=1)
             current_start_date = current_end_date - timedelta(days=30)
-            
-            if last_loop:   #break after last loop aroun
+
+
+            if last_loop:   #break after last loop around
                 break
 
             if current_start_date < overall_start_date:
@@ -121,7 +126,7 @@ def get_alert_data_within_limits(overall_start_date, overall_end_date, max_data_
 
 
 # Define the overall date range
-overall_start_date = datetime.strptime('01/05/2024', '%d/%m/%Y')
+overall_start_date = datetime.strptime('25/06/2024', '%d/%m/%Y')  #Code doesn't work if time_delta is less than 30 days - NEED TO FIX
 overall_end_date = datetime.strptime('26/06/2024', '%d/%m/%Y')
 
 # Scrape data within limits
