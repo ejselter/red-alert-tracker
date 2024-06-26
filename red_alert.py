@@ -121,7 +121,7 @@ def get_alert_data_within_limits(overall_start_date, overall_end_date, max_data_
 
 
 # Define the overall date range
-overall_start_date = datetime.strptime('01/03/2024', '%d/%m/%Y')
+overall_start_date = datetime.strptime('01/05/2024', '%d/%m/%Y')
 overall_end_date = datetime.strptime('26/06/2024', '%d/%m/%Y')
 
 # Scrape data within limits
@@ -138,7 +138,7 @@ df = pd.DataFrame(all_alert_data)
 print(df)
 
 # Save as csv
-df.to_csv('Israel_rocket_data_'+str(overall_start_date.date()), index=False)
+df.to_csv('Israel_rocket_data_'+str(overall_start_date.date())+'_'+str(overall_end_date.date())+'.csv', index=False)
 
 print('Exported csv succesfully!')
 print("--- %s seconds ---" % (time.time() - start_time))
